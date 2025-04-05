@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,10 +29,23 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserValidationException.class)
-    public ResponseEntity<Map<String, String>> handleUserValidation(UserValidationException ex) {
+    public ResponseEntity<Map<String, String>> handleUserValidation(UserValidationException ex, HttpServletRequest request) {
+
         Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
+
+        if (request.getRequestURI().contains("/auth/login")) {
+            response.put("error", "Error al autenticar usuario: " + ex.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+
+        } else if (request.getRequestURI().contains("/auth/register")) {
+            response.put("error", "Error al registrar usuario: " + ex.getMessage());
+            
+        } else {
+            response.put("error", ex.getMessage());
+        }
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+
     
 }

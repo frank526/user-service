@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prueba.common_library.dto.UsuarioDto;
+import com.prueba.user_service.dto.UserRegisterRequest;
 import com.prueba.user_service.security.filter.JwtAuthenticationFilter;
 import com.prueba.user_service.service.UsuarioService;
 
@@ -21,7 +22,7 @@ import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("auth/users")
 public class UserController {
 
 
@@ -52,7 +53,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> saveUser(@RequestBody @Valid UsuarioDto usuarioDto) {
+    public ResponseEntity<?> saveUser(@RequestBody @Valid UserRegisterRequest usuarioDto) {
 
         Map<String, Object> response = new HashMap<>();
 

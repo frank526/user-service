@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.prueba.common_library.dto.UsuarioDto;
 import com.prueba.common_library.entity.Usuario;
-import com.prueba.user_service.AuthAux.AuthRequest;
+import com.prueba.user_service.dto.AuthRequest;
+import com.prueba.user_service.dto.UserRegisterRequest;
 import com.prueba.user_service.exception.UserValidationException;
 import com.prueba.user_service.repository.UserRepository;
 import com.prueba.user_service.service.UsuarioService;
@@ -19,7 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   UserRepository repo;
 
   @Override
-  public UsuarioDto register(UsuarioDto usuarioDto) {
+  public UsuarioDto register(UserRegisterRequest usuarioDto) {
 
     if (repo.existsByEmail(usuarioDto.getCorreo())) {
       throw new UserValidationException("Ya existe un usuario con ese correo electronico");
@@ -52,20 +53,17 @@ public class UsuarioServiceImpl implements UsuarioService {
   }
 
   @Override
-  public boolean validate(AuthRequest request) throws Exception {
+  public void validate(AuthRequest request){
   
     Usuario usuario = repo.findByPassword(request.getPassword());
 
     if(Objects.isNull(usuario)){
-      throw new Exception("No se encontro usuario por el password");
+      throw new UserValidationException("No se encontro usuario por el password");
     }
 
     if(!usuario.getUserName().equals(request.getUsername())){
-      throw new Exception("El username no coincide");
+      throw new UserValidationException("El username no coincide");
     }
-
-    return true;
-
 
   }
     

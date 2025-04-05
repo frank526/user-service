@@ -1,4 +1,4 @@
-package com.prueba.user_service.AuthAux;
+package com.prueba.user_service.dto;
 
 public class AuthResponse {
     private String token;

@@ -1,16 +1,15 @@
 package com.prueba.user_service.service;
 
 import com.prueba.common_library.dto.UsuarioDto;
-import com.prueba.user_service.AuthAux.AuthRequest;
+import com.prueba.user_service.dto.AuthRequest;
+import com.prueba.user_service.dto.UserRegisterRequest;
 
 
 public interface UsuarioService {
 
-    UsuarioDto register(UsuarioDto usuario);
+    UsuarioDto register(UserRegisterRequest usuario);
 
-    boolean validate(AuthRequest request) throws Exception;
-
-
+    void validate(AuthRequest request);
 
 
     
