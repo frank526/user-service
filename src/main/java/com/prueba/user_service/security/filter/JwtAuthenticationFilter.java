@@ -1,8 +1,10 @@
 package com.prueba.user_service.security.filter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,19 +14,28 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.Key;
 
-@Service
+
 public class JwtAuthenticationFilter  extends OncePerRequestFilter {
 
     //private final String secretKey = "mi_clave_secreta_segura_de_al_menos_32_bytes";
 
-    private static final String SECRET_KEY = "mi_clave_secreta_segura_de_al_menos_32_bytes"; // Debe ser al menos de 32 caracteres
-    private static final Key signingKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes()); 
+
+    private Key signingKey;
+
+    public JwtAuthenticationFilter(@Value("${security.secretkey}") String secretKey) {
+        this.signingKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
+    
+
+
+     //private static final String SECRET_KEY = "mi_clave_secreta_segura_de_al_menos_32_bytes"; // Debe ser al menos de 32 caracteres
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -37,8 +48,6 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
                     String jwt = authHeader.substring(7);
 
                     try{
-                        
-                       // Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt).getBody();
                        Claims claims = extractClaims(jwt);
                         
                         String username = claims.getSubject();

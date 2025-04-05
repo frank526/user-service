@@ -22,16 +22,19 @@ import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("auth/users")
+@RequestMapping("users")
 public class UserController {
 
 
     @Autowired
     UsuarioService userService;
 
+
+    /*
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    
 
     @GetMapping("/protected")
     public String getProtectedResource(@RequestHeader("Authorization") String authorizationHeader) {
@@ -49,7 +52,7 @@ public class UserController {
         } catch (Exception e) {
             return "Invalid or expired token";
         }
-    }
+    }*/
 
 
     @PostMapping("/register")
