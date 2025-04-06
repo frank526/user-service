@@ -22,7 +22,7 @@ import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/api/auth/users")
 public class UserController {
 
 
