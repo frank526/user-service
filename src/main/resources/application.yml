@@ -5,14 +5,10 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:mysql://localhost:3306/pruebadb
-    username: root
-    password: 1234 
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD} 
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-security:
-  secretkey: mi_clave_secreta_segura_de_al_menos_32_bytes
-  token-expiration: 86400000
 
   jpa:
     hibernate:
@@ -21,3 +17,10 @@ security:
     properties:
       hibernate:
         format_sql: true
+        #dialect: org.hibernate.dialect.MySQL8Dialect
+
+security:
+  secretkey: jE8v0gUm8hTz4QoPpT5nyC9xVtQaznE7
+  token-expiration: 86400000
+
+

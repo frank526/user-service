@@ -13,7 +13,7 @@ import com.prueba.user_service.security.JwtService;
 import com.prueba.user_service.service.UsuarioService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final JwtService jwtService;
