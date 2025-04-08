@@ -8,8 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class UserRegisterRequest {
 
    @NotBlank(message = "El nombre es obligatorio")

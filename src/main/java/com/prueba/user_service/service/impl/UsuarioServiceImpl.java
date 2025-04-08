@@ -68,6 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     .apellido(usuarioCreated.getLastName())
     .userName(usuarioCreated.getUserName())
     .correo(usuarioCreated.getEmail())
+    .contrasena(usuarioCreated.getPassword())
     .id(usuarioCreated.getId())
     .rol(usuarioCreated.getRol()).build();
 

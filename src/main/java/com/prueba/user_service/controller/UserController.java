@@ -30,31 +30,6 @@ public class UserController {
     UsuarioService userService;
 
 
-    /*
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    
-
-    @GetMapping("/protected")
-    public String getProtectedResource(@RequestHeader("Authorization") String authorizationHeader) {
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return "Token is missing or invalid";
-        }
-
-        String token = authorizationHeader.substring(7); // Extract the token without "Bearer "
-
-        try {
-            Claims claims = jwtAuthenticationFilter.extractClaims(token);
-            String username = claims.getSubject();
-            // Puedes devolver la información del usuario o cualquier otro dato
-            return "Protected resource accessed by: " + username;
-        } catch (Exception e) {
-            return "Invalid or expired token";
-        }
-    }*/
-
-
     @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody @Valid UserRegisterRequest usuarioDto) {
 
